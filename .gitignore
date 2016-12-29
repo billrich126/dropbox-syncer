@@ -1,4 +1,5 @@
 # Logs
+.DS_Store
 logs
 *.log
 npm-debug.log*
@@ -35,3 +36,6 @@ jspm_packages
 
 # Optional REPL history
 .node_repl_history
+
+# random
+service
