@@ -107,22 +107,23 @@ Public Dropbox folder URL:
   4. 在自己网站的HTML源代码的</body>标签正上方添加：
   `<script src="./bundle.js" type="text/javascript">`
 
-** 手动编译 **
+
+**手动编译**
 
 1. 下载[安装脚本](https://raw.githubusercontent.com/lxynox/dropbox-syncer/master/install.sh)`install.sh`到桌面, Open your terminal:
 
-Run:
+  Run:
 
-`curl -fsSL  "https://raw.githubusercontent.com/lxynox/dropbox-syncer/master/install.sh" > ~/Desktop/install.sh`
+  `curl -fsSL  "https://raw.githubusercontent.com/lxynox/dropbox-syncer/master/install.sh" > ~/Desktop/install.sh`
 
 2. 安装开发环境
 
-Run:
+  Run:
 
-`source ~/Desktop/install.sh`
+  `source ~/Desktop/install.sh`
 
 3. 手动修改`/client/js/components/*`, 每次修改后编译source, 得到目标`bundle.js`, embed bundle.js 到HTML
 
-Run:
+  Run:
 
-`npm run build`
+  `npm run build`

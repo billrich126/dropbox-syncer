@@ -15,6 +15,8 @@ import upload from '../utils/upload'
 const SELECT_FIELD_ERR_MSG = 'Selection is required'
 const TEXT_FIELD_ERR_MSG = 'This field is required'
 const FILE_UPLOAD_ERR_MSG = 'File upload is required'
+const SUCCESS_DIALOG_MSG = 'Succeeded, thank you!'
+const FAILED_DIALOG_MSG = 'Failed to upload, please try again!'
 
 const styles = {
   fontFamily: 'Roboto Mono',
@@ -207,7 +209,7 @@ export default class FormValidator extends Component {
           open={this.state.open}
           onRequestClose={this.handleClose}
           >
-          {this.state.uploadSucceed? 'Succeeded, thank you!' : 'Failed to upload, please try again!'}
+          {this.state.uploadSucceed? SUCCESS_DIALOG_MSG : FAILED_DIALOG_MSG}
         </Dialog>
       </div>
     )

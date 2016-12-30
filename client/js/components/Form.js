@@ -39,6 +39,11 @@ const styles = {
   },
   chip: {
     margin: 4
+  },
+  circularProgress: {
+    position: 'absolute',
+    top: 9,
+    left: 108
   }
 }
 
@@ -290,6 +295,7 @@ export default class Form extends Component {
             </RaisedButton>
           </div>
 
+         {this.state.files.length > 0?
           <div className='col-xs-12 col-sm-6'>
             <List>
               {this.state.files.map((file, x)=>
@@ -302,7 +308,7 @@ export default class Form extends Component {
                </Chip>
               )}
             </List>
-          </div>
+          </div> : null}
 
           <div className='col-xs-12 col-sm-6'>
             <RaisedButton
@@ -320,7 +326,7 @@ export default class Form extends Component {
                 onClick={this.handleSubmit}
                 />
               <CircularProgress
-                style={{display: spinnerDisplay, position: 'absolute', top: 9, left: 108}}
+                style={Object.assign({display: spinnerDisplay}, styles.circularProgress)}
                 color={amber500}
                 />
             </RaisedButton>
