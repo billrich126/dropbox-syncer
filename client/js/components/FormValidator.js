@@ -12,8 +12,9 @@ import {FlatButton, Dialog} from 'material-ui'
 import Form from './Form'
 import upload from '../utils/upload'
 
+const SELECT_FIELD_ERR_MSG = 'Selection is required'
 const TEXT_FIELD_ERR_MSG = 'This field is required'
-const FILE_UPLOAD_ERR_MSG = 'Audio file is required'
+const FILE_UPLOAD_ERR_MSG = 'File upload is required'
 
 const styles = {
   fontFamily: 'Roboto Mono',
@@ -30,6 +31,7 @@ export default class FormValidator extends Component {
       uploadSucceed: false,
       uploadStarted: false,
       open: false,
+      teamErrText: null,
       levelErrText: null,
       apparatusErrText: null,
       firstNameErrText: null,
@@ -43,13 +45,24 @@ export default class FormValidator extends Component {
   }
 
   _validateUserInput(input) {
-    const { level, apparatus, firstName, lastName, fileContents } = input
+    const { team, level, apparatus, isAthlete, firstName, lastName, files } = input
 
     var allValid = true
 
+    // selection fields
+    if (!team) {
+      this.setState({
+        teamErrText: SELECT_FIELD_ERR_MSG
+      })
+      allValid = false
+    } else {
+      this.setState({
+        teamErrText: null
+      })
+    }
     if (!level) {
       this.setState({
-        levelErrText: TEXT_FIELD_ERR_MSG
+        levelErrText: SELECT_FIELD_ERR_MSG
       })
       allValid = false
     } else {
@@ -59,7 +72,7 @@ export default class FormValidator extends Component {
     }
     if (!apparatus) {
       this.setState({
-        apparatusErrText: TEXT_FIELD_ERR_MSG
+        apparatusErrText: SELECT_FIELD_ERR_MSG
       })
       allValid = false
     } else {
@@ -67,7 +80,9 @@ export default class FormValidator extends Component {
         apparatusErrText: null
       })
     }
-    if (!firstName || !firstName.trim()) {
+
+    // text fieds
+    if (isAthlete && (!firstName || !firstName.trim())) {
       this.setState({
         firstNameErrText: TEXT_FIELD_ERR_MSG
       })
@@ -77,7 +92,7 @@ export default class FormValidator extends Component {
         firstNameErrText: null
       })
     }
-    if (!lastName || !lastName.trim()) {
+    if (isAthlete && (!lastName || !lastName.trim())) {
       this.setState({
         lastNameErrText: TEXT_FIELD_ERR_MSG
       })
@@ -87,7 +102,9 @@ export default class FormValidator extends Component {
         lastNameErrText: null
       })
     }
-    if (fileContents.length === 0) {
+
+    // file upload
+    if (files.length === 0) {
       this.setState({
         fileUploadErrText: FILE_UPLOAD_ERR_MSG
       })
@@ -103,22 +120,22 @@ export default class FormValidator extends Component {
 
   handleSubmit(data) {
     if (!this._validateUserInput(data)) {
-      return
+      return false
     }
 
     this.setState({
       uploadStarted: true
     })
 
-    const { level, apparatus, firstName, lastName, fileContents } = data
+    const { team, level, apparatus, firstName, lastName, files } = data
     var self = this
 
     return new Promise((resolve, reject) => {
-      const n = fileContents.length;
+      const n = files.length;
 
       let uploadAsynTasks = [...Array(n).keys()].map(x => {
         return upload(
-          level, apparatus, firstName, lastName, fileContents[x]
+          team, level, apparatus, firstName, lastName, files[x]
         )
       })
 
@@ -129,7 +146,6 @@ export default class FormValidator extends Component {
         .catch(err => reject(err))
     })
     .then(resolve => {
-      console.log(resolve)
       self.setState({
           open: true,
           uploadSucceed: true,
@@ -137,13 +153,14 @@ export default class FormValidator extends Component {
       })
     })
     .catch(rej => {
-      console.log(rej)
       self.setState({
         open: true,
         uploadSucceed: false,
         uploadStarted: false
       })
     })
+
+    return true
   }
 
   handleClose() {
@@ -174,12 +191,14 @@ export default class FormValidator extends Component {
         style={styles}
         >
         <Form
+          teamErrText={this.state.teamErrText}
           levelErrText={this.state.levelErrText}
           apparatusErrText={this.state.apparatusErrText}
           firstNameErrText={this.state.firstNameErrText}
           lastNameErrText={this.state.lastNameErrText}
           fileUploadErrText={this.state.fileUploadErrText}
           onSubmit={this.handleSubmit}
+          onUpload={this.handleUpload}
           inProgress={this.state.uploadStarted}
           />
 
@@ -188,7 +207,7 @@ export default class FormValidator extends Component {
           open={this.state.open}
           onRequestClose={this.handleClose}
           >
-          {this.state.uploadSucceed? 'Thanks a lot, you are all set' : 'Ohoops, something went wrong :('}
+          {this.state.uploadSucceed? 'Thanks a lot! 🎉🎉🎉🎉🎉' : 'Ohoops! Upload failed ☹️ follow the instructions please.'}
         </Dialog>
       </div>
     )

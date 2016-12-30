@@ -5,14 +5,17 @@
  *  <prefix> + <original filename> + <file extension>
  */
 
-const generateFilename = function(level, apparatus, firstName, lastName, origName) {
-  const CLUB_NAME = 'rhd'
+const generateFilename = function(team, level, apparatus, firstName, lastName, file) {
+  var fileExt = file.name.split('.').pop()
 
   apparatus = apparatus.toLowerCase()
-  firstName = firstName.toLowerCase()
-  lastName = lastName.toLowerCase()
 
-  return 'level'+level+'_'+apparatus+'_'+CLUB_NAME+'_'+firstName+'_'+lastName+'.'+origName
+  var name = "all"
+  if (firstName && lastName) {
+    name = firstName+'_'+lastName
+  }
+
+  return team+'_'+level+'_'+apparatus+'_'+name+'.'+fileExt
 }
 
 export default generateFilename

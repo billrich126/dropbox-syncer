@@ -1,22 +1,32 @@
 /**
- * Customized react Form element
+ * Customized react form element
  *
  * render the UI stuffs
  */
 
 
 import React, {Component} from 'react'
-import {SelectField, MenuItem, TextField, RaisedButton,
-        FontIcon, Badge, IconButton, CircularProgress} from 'material-ui'
-import UploadIcon from 'material-ui/svg-icons/file/cloud-upload'
-import {purple100, amber500} from 'material-ui/styles/colors'
+import {SelectField, MenuItem, TextField,
+        RaisedButton, CircularProgress, Toggle,
+        List, Chip} from 'material-ui'
+import ContentDel from 'material-ui/svg-icons/content/remove'
+import {amber500, cyan500} from 'material-ui/styles/colors'
 
 const styles = {
-  customWidth: {
-    width: 200
+  selectField: {
+    icon: {
+      fill: cyan500,
+    }
   },
   textField: {
     height: 72
+  },
+  toggle: {
+    marginTop: 15,
+    marginBottom: 15
+  },
+  fontIcons: {
+    marginTop: 8
   },
   button: {
     width: 256,
@@ -26,9 +36,15 @@ const styles = {
   },
   uploadButton: {
     display: 'none'
+  },
+  chip: {
+    margin: 4
   }
 }
 
+const teamOptions = [
+  <MenuItem key={"rhd"} value={"rhd"} primaryText="rhd" />
+]
 const levelOptions = [
   <MenuItem key={"level3"} value={3} primaryText="level 3" />,
   <MenuItem key={"level4"} value={4} primaryText="level 4" />,
@@ -52,22 +68,31 @@ export default class Form extends Component {
     super(props)
 
     this.state = {
+      team: null,
       level: null,
       apparatus: null,
+      isAthlete: false,
       firstName: null,
       lastName: null,
-      fileContents: [],
-      chosenFile: null
+      files: []
     }
 
+    this.handleTeamChange = this.handleTeamChange.bind(this)
     this.handleLevelChange = this.handleLevelChange.bind(this)
     this.handleapparatusChange = this.handleapparatusChange.bind(this)
+    this.handleAthleteToggle = this.handleAthleteToggle.bind(this)
     this.handleFirstNameChange = this.handleFirstNameChange.bind(this)
     this.handleLastNameChange = this.handleLastNameChange.bind(this)
     this.handleUpload = this.handleUpload.bind(this)
+    this.handleRequestDelete = this.handleRequestDelete.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
+  handleTeamChange(e, index, value) {
+    this.setState({
+      team: value
+    })
+  }
   handleLevelChange(e, index, value) {
     this.setState({
       level: value
@@ -78,6 +103,13 @@ export default class Form extends Component {
       apparatus: value
     })
   }
+
+  handleAthleteToggle() {
+    this.setState({
+      isAthlete: !this.state.isAthlete
+    })
+  }
+
   handleFirstNameChange(e) {
     this.setState({
       firstName: e.target.value
@@ -88,22 +120,63 @@ export default class Form extends Component {
       lastName: e.target.value
     })
   }
+
   handleUpload(e) {
+    var curFiles = this.state.files
     var files = e.target.files
+
+    // current have 1 file
+    if (curFiles.length === 1 && files.length > 0) {
+      this.setState({
+        files: [...curFiles, files[0]]
+      })
+      return
+    }
+
+    // current empty file
+    if (files.length > 1) {
+      this.setState({
+        files: [files[0], files[1]]
+      })
+    } else if (files.length === 1) {
+      this.setState({
+        files: [files[0]]
+      })
+    }
+  }
+  handleRequestDelete(key) {
     this.setState({
-      fileContents: files,
-      chosenFile: this.refs.uploader.value
+      files: this.state.files.filter(file => file.name !== key)
     })
   }
 
   handleSubmit(e) {
     e.preventDefault()
-    const {onSubmit} = this.props
-    onSubmit(this.state)
+
+    // prevent click when uploading
+    if (this.props.inProgress) {
+      return
+    }
+
+    // input validation failed
+    if (!this.props.onSubmit(this.state)) {
+      return
+    }
+
+    // reset state after request is sent
+    this.setState({
+      team: null,
+      level: null,
+      apparatus: null,
+      isAthlete: false,
+      firstName: null,
+      lastName: null,
+      files: []
+    })
   }
 
   render() {
-    const { levelErrText, apparatusErrText, firstNameErrText, lastNameErrText, fileUploadErrText, inProgress } = this.props
+    const { teamErrText, levelErrText, apparatusErrText, firstNameErrText, lastNameErrText, fileUploadErrText, inProgress } = this.props
     const spinnerDisplay = inProgress? 'inline-block' : 'none'
 
     return (
@@ -111,53 +184,97 @@ export default class Form extends Component {
       <form method="post" encType="multipart/form-data">
 
         <div className="row">
+          <div className="col-xs-12">
+            <SelectField
+              disabled={inProgress}
+              value={this.state.team}
+              onChange={this.handleTeamChange}
+              errorText={!this.state.team? teamErrText:null}
+              floatingLabelText="Team"
+              iconStyle={!inProgress? styles.selectField.icon : null}
+              >
+              {teamOptions}
+            </SelectField>
+          </div>
+        </div>
+
+        <div className="row">
           <div className="col-xs-12 col-sm-6">
             <SelectField
+              disabled={inProgress}
               value={this.state.level}
               onChange={this.handleLevelChange}
-              errorText={levelErrText}
+              errorText={!this.state.level? levelErrText : null}
               floatingLabelText="Level"
+              iconStyle={!inProgress? styles.selectField.icon : null}
               >
               {levelOptions}
             </SelectField>
           </div>
           <div className="col-xs-12 col-sm-6">
             <SelectField
+              disabled={inProgress}
               value={this.state.apparatus}
               onChange={this.handleapparatusChange}
-              errorText={apparatusErrText}
+              errorText={!this.state.apparatus? apparatusErrText : null}
               floatingLabelText="Apparatus"
+              iconStyle={!inProgress? styles.selectField.icon : null}
               >
               {apparatusOptions}
             </SelectField>
           </div>
         </div>
 
-        <div className="row">
-          <div className="col-xs-12 col-sm-6">
-            <TextField
-              style={styles.textField}
-              hintText="First Name"
-              errorText={firstNameErrText}
-              onChange={this.handleFirstNameChange}
-              />
-          </div>
-          <div className="col-xs-12 col-sm-6">
-            <TextField
-              style={styles.textField}
-              hintText="Last Name"
-              errorText={lastNameErrText}
-              onChange={this.handleLastNameChange}
+
+        <div style={styles.toggle} className="row">
+          <div style={styles.toggle.box} className="col-xs-6">
+            <Toggle
+              disabled={inProgress}
+              label="Athlete"
+              style={styles.toggle}
+              labelPosition="right"
+              toggled={this.state.isAthlete}
+              onToggle={this.handleAthleteToggle}
               />
           </div>
         </div>
 
+        {this.state.isAthlete?
+          <div className="row">
+            <div className="col-xs-12 col-sm-6">
+              <TextField
+                disabled={inProgress}
+                style={styles.textField}
+                hintText="First Name"
+                value={this.state.firstName}
+                errorText={!this.state.firstName? firstNameErrText : null}
+                onChange={this.handleFirstNameChange}
+                />
+            </div>
+            <div className="col-xs-12 col-sm-6">
+              <TextField
+                disabled={inProgress}
+                style={styles.textField}
+                hintText="Last Name"
+                value={this.state.lastName}
+                errorText={!this.state.lastName? lastNameErrText : null}
+                onChange={this.handleLastNameChange}
+                />
+            </div>
+          </div> : null
+        }
+
         <div className="row">
           <div className="col-xs-12 col-sm-6">
             <RaisedButton
+              disabled={inProgress || this.state.files.length === 2}
               style={styles.button}
-              label={!this.state.chosenFile?
-                  "Upload 📂" : this.state.chosenFile}
+              label={
+                (fileUploadErrText && this.state.files.length === 0?
+                  <i style={styles.fontIcons} className="material-icons md-36 red500">error_outline</i>:
+                  <i style={styles.fontIcons} className="material-icons md-36">cloud_upload</i>
+                )
+              }
               labelPosition="before"
               default={true}
               containerElement="label"
@@ -167,19 +284,40 @@ export default class Form extends Component {
                 style={styles.uploadButton}
                 type="file"
                 accept="file_extension|audio/*"
+                disabled={inProgress || this.state.files.length === 2}
                 onChange={this.handleUpload} multiple/>
             </RaisedButton>
           </div>
+
+          <div className="col-xs-12 col-sm-6">
+            <List>
+              {this.state.files.map((file, x)=>
+                <Chip
+                  key={x}
+                  onRequestDelete={() => this.handleRequestDelete(file.name)}
+                  style={styles.chip}
+                 >
+                 {file.name}
+               </Chip>
+              )}
+            </List>
+          </div>
+
           <div className="col-xs-12 col-sm-6">
             <RaisedButton
-              style={styles.button}
               disabled={inProgress}
+              style={styles.button}
+              // label={<i style={styles.fontIcons} className="material-icons md-36">send</i>}
               label="submit"
               labelPosition="before"
               primary={true}
               containerElement="label"
               >
-              <input type="submit" style={{display: 'none'}} onClick={this.handleSubmit} />
+              <input
+                type="submit"
+                style={{display: 'none'}}
+                onClick={this.handleSubmit}
+                />
               <CircularProgress
                 style={{display: spinnerDisplay, position: 'absolute', top: 9, left: 108}}
                 color={amber500}

@@ -1,11 +1,11 @@
 var webpack = require('webpack')
 
 module.exports = {
-
   // configuration
   entry: ['babel-polyfill', './client/js/index'],
   output: {
-    path: __dirname + '/client/dist',
+    path: __dirname + '/client/build',
+    publicPath: '/client/build',
     filename: 'bundle.js'
   },
 
@@ -19,6 +19,8 @@ module.exports = {
     ]
   },
 
+  devServer: {
+    // contentBase: __dirname + '/client'
+  },
   devtool: 'sourcemap'
-
 };
