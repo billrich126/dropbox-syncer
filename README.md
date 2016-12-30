@@ -10,25 +10,25 @@ Dropbox `upload` api is used, and developed with es2015.
 .
 ├── .babelrc
 ├── .gitignore
-├── LICENSE
 ├── README.md
 ├── client
-│   ├── css
-│   │   └── flexboxgrid.min.css
-│   ├── dist
+│   ├── build
 │   │   ├── bundle.js
 │   │   └── bundle.js.map
+│   ├── css
+│   │   └── flexboxgrid.min.css
 │   ├── index.html
 │   └── js
 │       ├── components
-│       │   ├── Form.js
-│       │   ├── FormValidator.js
-│       │   └── FormWrapper.js
+│       │   ├── Form.js (here ▷ 修改html和styles)
+│       │   └── FormValidator.js (here ▷ 修改html和styles)
 │       ├── index.js
 │       └── utils
 │           ├── authenticate.js
 │           ├── generateFilename.js
 │           └── upload.js
+├── gulpfile.js
+├── img0.png
 ├── package.json
 ├── server.js
 ├── webpack.config.js
@@ -70,11 +70,11 @@ Website runs background script to sync those static assets(children profiles & a
 
 Public hosting URL:
 
-[点击进入](https://dropbox-autoloader-nixgimoaps.now.sh)
+[点击进入](https://dropbox-autoloader-uilxervzfo.now.sh/)
 
 Public Dropbox folder URL:
 
-[点击进入](https://www.dropbox.com/sh/nif7lfviszlb3o7/AAAWJ-jo-yBjJM_aZ9rLBCA1a?dl=0)
+[点击进入](https://www.dropbox.com/sh/b3gtutjf8io2kec/AABahDmOdmCUKUy2Ivbu4heja?dl=0)
 
 **首先测试功能是否正确**
 
@@ -89,20 +89,20 @@ Public Dropbox folder URL:
 
 拿到token即可, 其他浮☁️
 
-![dropbox new app page](img0)
+![dropbox new app page](img0.png)
 
 **如果功能正确，那就把app的服务集成到自己的网站上面**
 
 推荐两种方法:
 
-1. 推荐使用`iframe`控件.(无需touch任何的source code)
+1. 推荐使用`iframe`控件.(无需touch任何的source)
 
   将`<iframe width=600 height=600 frameborder=0 scrolling=auto src="https://dropbox-autoloader-nixgimoaps.now.sh/"/>` 复制粘贴到原先网页的HTML源代码的目标位置（被移除button的那个区域）。
 
 2. 手动编译源代码(利用项目文件里面已经配置好的工具手动编译)
 
   1. 修改源文件
-  2. 手动编译. Terminal中手动输入`npm run build`生成新的`/client/dist/bundle.js`文件
+  2. 手动编译. Terminal中手动输入`npm run build`生成新的`/client/build/bundle.js`文件
   3. 将bundle.js文件上传到自己website的root路径下面
   4. 在自己网站的HTML源代码的</body>标签正上方添加：
-  `<script src="bundle.js" type="text/javascript">`
+  `<script src="./bundle.js" type="text/javascript">`

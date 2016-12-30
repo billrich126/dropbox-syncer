@@ -10,7 +10,7 @@ const generateFilename = function(team, level, apparatus, firstName, lastName, f
 
   apparatus = apparatus.toLowerCase()
 
-  var name = "all"
+  var name = 'all'
   if (firstName && lastName) {
     name = firstName+'_'+lastName
   }

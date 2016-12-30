@@ -11,25 +11,25 @@ import generateFilename from './generateFilename'
 import authenticate from './authenticate'
 
 const upload = function(team, level, apparatus, firstName, lastName, file) {
-  var dbx;
+  var dbx
 
   // TODO: CHANGE THE TOKEN TO YOUR DROPBOX FOLDER's TOKEN, then all set!
-  var token = "kwsKcLtrRVEAAAAAAADAfjsrHeWj7RJJZl_qTHI273jjaoQNMFUxW2b2m7KEGYw4"
+  var token = 'kwsKcLtrRVEAAAAAAADAfjsrHeWj7RJJZl_qTHI273jjaoQNMFUxW2b2m7KEGYw4'
 
   dbx = authenticate(token)
   if (!dbx) {
-    throw "Your dropbox token *is not* valid!"
+    throw 'Your dropbox token *is not* valid!'
   }
 
-  var filename;
+  var filename
   filename = generateFilename(team, level, apparatus, firstName, lastName, file)
   if (!filename) {
-    throw  "Your file name doesn't meet requirement"
+    throw  'Your file name doesn\'t meet requirement'
   }
 
-  // console.log("Valid Filename is:", filename)
+  // console.log('Valid Filename is:', filename)
 
-  var public_path = "/folkUploads"
+  var public_path = '/folkUploads'
   var target_path = [public_path, 'level'+level, filename].join('/')
   return dbx.filesUpload({
     contents: file,

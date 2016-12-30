@@ -8,7 +8,7 @@ var webpackConfig = require('./webpack.config.js')
 gulp.task('default', ['webpack-dev-server'])
 
 // [ dev server ]
-gulp.task("webpack-dev-server", function(callback) {
+gulp.task('webpack-dev-server', function(callback) {
   var myConfig = Object.create(webpackConfig);
   myConfig.devtool = "eval";
   myConfig.debug = true;
@@ -18,9 +18,9 @@ gulp.task("webpack-dev-server", function(callback) {
     stats: {
       colors: true
     }
-  }).listen(8080, "localhost", function(err) {
-    if(err) throw new gutil.PluginError("webpack-dev-server", err);
-    gutil.log("[webpack-dev-server]", "http://localhost:8080/webpack-dev-server/index.html");
+  }).listen(8080, 'localhost', function(err) {
+    if(err) throw new gutil.PluginError('webpack-dev-server', err);
+    gutil.log('[webpack-dev-server]', 'http://localhost:8080/webpack-dev-server/index.html');
   });
 })
 
@@ -32,8 +32,8 @@ devConfig.debug = true
 var devCompiler = webpack(devConfig)            // caching
 gulp.task('webpack:build-dev', function(cb) {
   devCompiler.run(function(err, stats) {
-    if(err) throw new gutil.PluginError("webpack:build-dev", err)
-    gutil.log("[webpack:build-dev]", stats.toString({
+    if(err) throw new gutil.PluginError('webpack:build-dev', err)
+    gutil.log('[webpack:build-dev]', stats.toString({
       colors: true
     }))
     cb()
@@ -54,8 +54,8 @@ gulp.task('webpack:build', function(cb) {
   )
 
   webpack(prodConfig, function(err, stats) {
-    if(err) throw new  gutil.PluginError("webpack:build-dev", err)
-    gutil.log("[webpack:build]", stats.toString({
+    if(err) throw new  gutil.PluginError('webpack:build-dev', err)
+    gutil.log('[webpack:build]', stats.toString({
       colors: true
     }))
     cb()

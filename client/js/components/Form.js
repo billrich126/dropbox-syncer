@@ -4,7 +4,6 @@
  * render the UI stuffs
  */
 
-
 import React, {Component} from 'react'
 import {SelectField, MenuItem, TextField,
         RaisedButton, CircularProgress, Toggle,
@@ -12,6 +11,7 @@ import {SelectField, MenuItem, TextField,
 import ContentDel from 'material-ui/svg-icons/content/remove'
 import {amber500, cyan500} from 'material-ui/styles/colors'
 
+// Stylesheets(inline)
 const styles = {
   selectField: {
     icon: {
@@ -42,25 +42,26 @@ const styles = {
   }
 }
 
+// Selection field options
 const teamOptions = [
-  <MenuItem key={"rhd"} value={"rhd"} primaryText="rhd" />
+  <MenuItem key={'rhd'} value={'rhd'} primaryText='rhd' />
 ]
 const levelOptions = [
-  <MenuItem key={"level3"} value={3} primaryText="level 3" />,
-  <MenuItem key={"level4"} value={4} primaryText="level 4" />,
-  <MenuItem key={"level5"} value={5} primaryText="level 5" />,
-  <MenuItem key={"level6"} value={6} primaryText="level 6" />,
-  <MenuItem key={"level7"} value={7} primaryText="level 7" />,
-  <MenuItem key={"level8"} value={8} primaryText="level 8" />,
-  <MenuItem key={"level9"} value={9} primaryText="level 9" />,
-  <MenuItem key={"level10"} value={10} primaryText="level 10" />
+  <MenuItem key={'level3'} value={3} primaryText='level 3' />,
+  <MenuItem key={'level4'} value={4} primaryText='level 4' />,
+  <MenuItem key={'level5'} value={5} primaryText='level 5' />,
+  <MenuItem key={'level6'} value={6} primaryText='level 6' />,
+  <MenuItem key={'level7'} value={7} primaryText='level 7' />,
+  <MenuItem key={'level8'} value={8} primaryText='level 8' />,
+  <MenuItem key={'level9'} value={9} primaryText='level 9' />,
+  <MenuItem key={'level10'} value={10} primaryText='level 10' />
 ]
 const apparatusOptions = [
-  <MenuItem key={"ball"} value={"ball"} primaryText="ball" />,
-  <MenuItem key={"rope"} value={"rope"} primaryText="rope" />,
-  <MenuItem key={"clubs"} value={"clubs"} primaryText="clubs" />,
-  <MenuItem key={"ribbon"} value={"ribbon"} primaryText="ribbon" />,
-  <MenuItem key={"floor"} value={"floor"} primaryText="floor" />
+  <MenuItem key={'ball'} value={'ball'} primaryText='ball' />,
+  <MenuItem key={'rope'} value={'rope'} primaryText='rope' />,
+  <MenuItem key={'clubs'} value={'clubs'} primaryText='clubs' />,
+  <MenuItem key={'ribbon'} value={'ribbon'} primaryText='ribbon' />,
+  <MenuItem key={'floor'} value={'floor'} primaryText='floor' />
 ]
 
 export default class Form extends Component {
@@ -68,12 +69,12 @@ export default class Form extends Component {
     super(props)
 
     this.state = {
-      team: null,
-      level: null,
-      apparatus: null,
+      team: undefined,
+      level: undefined,
+      apparatus: undefined,
       isAthlete: false,
-      firstName: null,
-      lastName: null,
+      firstName: "",
+      lastName: "",
       files: []
     }
 
@@ -93,11 +94,13 @@ export default class Form extends Component {
       team: value
     })
   }
+
   handleLevelChange(e, index, value) {
     this.setState({
       level: value
     })
   }
+
   handleapparatusChange(e, index, value) {
     this.setState({
       apparatus: value
@@ -115,6 +118,7 @@ export default class Form extends Component {
       firstName: e.target.value
     })
   }
+
   handleLastNameChange(e) {
     this.setState({
       lastName: e.target.value
@@ -125,15 +129,14 @@ export default class Form extends Component {
     var curFiles = this.state.files
     var files = e.target.files
 
-    // current have 1 file
+    // Single file chosen
     if (curFiles.length === 1 && files.length > 0) {
       this.setState({
         files: [...curFiles, files[0]]
       })
       return
     }
-
-    // current empty file
+    // No file chosen
     if (files.length > 1) {
       this.setState({
         files: [files[0], files[1]]
@@ -144,6 +147,7 @@ export default class Form extends Component {
       })
     }
   }
+
   handleRequestDelete(key) {
     this.setState({
       files: this.state.files.filter(file => file.name !== key)
@@ -157,20 +161,18 @@ export default class Form extends Component {
     if (this.props.inProgress) {
       return
     }
-
     // input validation failed
     if (!this.props.onSubmit(this.state)) {
       return
     }
-
     // reset state after request is sent
     this.setState({
-      team: null,
-      level: null,
-      apparatus: null,
+      team: undefined,
+      level: undefined,
+      apparatus: undefined,
       isAthlete: false,
-      firstName: null,
-      lastName: null,
+      firstName: "",
+      lastName: "",
       files: []
     })
   }
@@ -180,17 +182,16 @@ export default class Form extends Component {
     const spinnerDisplay = inProgress? 'inline-block' : 'none'
 
     return (
+      <form method='post' encType='multipart/form-data'>
 
-      <form method="post" encType="multipart/form-data">
-
-        <div className="row">
-          <div className="col-xs-12">
+        <div className='row'>
+          <div className='col-xs-12'>
             <SelectField
               disabled={inProgress}
               value={this.state.team}
               onChange={this.handleTeamChange}
               errorText={!this.state.team? teamErrText:null}
-              floatingLabelText="Team"
+              floatingLabelText='Team'
               iconStyle={!inProgress? styles.selectField.icon : null}
               >
               {teamOptions}
@@ -198,26 +199,26 @@ export default class Form extends Component {
           </div>
         </div>
 
-        <div className="row">
-          <div className="col-xs-12 col-sm-6">
+        <div className='row'>
+          <div className='col-xs-12 col-sm-6'>
             <SelectField
               disabled={inProgress}
               value={this.state.level}
               onChange={this.handleLevelChange}
               errorText={!this.state.level? levelErrText : null}
-              floatingLabelText="Level"
+              floatingLabelText='Level'
               iconStyle={!inProgress? styles.selectField.icon : null}
               >
               {levelOptions}
             </SelectField>
           </div>
-          <div className="col-xs-12 col-sm-6">
+          <div className='col-xs-12 col-sm-6'>
             <SelectField
               disabled={inProgress}
               value={this.state.apparatus}
               onChange={this.handleapparatusChange}
               errorText={!this.state.apparatus? apparatusErrText : null}
-              floatingLabelText="Apparatus"
+              floatingLabelText='Apparatus'
               iconStyle={!inProgress? styles.selectField.icon : null}
               >
               {apparatusOptions}
@@ -226,13 +227,13 @@ export default class Form extends Component {
         </div>
 
 
-        <div style={styles.toggle} className="row">
-          <div style={styles.toggle.box} className="col-xs-6">
+        <div style={styles.toggle} className='row'>
+          <div style={styles.toggle.box} className='col-xs-6'>
             <Toggle
               disabled={inProgress}
-              label="Athlete"
+              label='Athlete'
               style={styles.toggle}
-              labelPosition="right"
+              labelPosition='right'
               toggled={this.state.isAthlete}
               onToggle={this.handleAthleteToggle}
               />
@@ -240,22 +241,22 @@ export default class Form extends Component {
         </div>
 
         {this.state.isAthlete?
-          <div className="row">
-            <div className="col-xs-12 col-sm-6">
+          <div className='row'>
+            <div className='col-xs-12 col-sm-6'>
               <TextField
                 disabled={inProgress}
                 style={styles.textField}
-                hintText="First Name"
+                hintText='First Name'
                 value={this.state.firstName}
                 errorText={!this.state.firstName? firstNameErrText : null}
                 onChange={this.handleFirstNameChange}
                 />
             </div>
-            <div className="col-xs-12 col-sm-6">
+            <div className='col-xs-12 col-sm-6'>
               <TextField
                 disabled={inProgress}
                 style={styles.textField}
-                hintText="Last Name"
+                hintText='Last Name'
                 value={this.state.lastName}
                 errorText={!this.state.lastName? lastNameErrText : null}
                 onChange={this.handleLastNameChange}
@@ -264,32 +265,32 @@ export default class Form extends Component {
           </div> : null
         }
 
-        <div className="row">
-          <div className="col-xs-12 col-sm-6">
+        <div className='row'>
+          <div className='col-xs-12 col-sm-6'>
             <RaisedButton
               disabled={inProgress || this.state.files.length === 2}
               style={styles.button}
               label={
                 (fileUploadErrText && this.state.files.length === 0?
-                  <i style={styles.fontIcons} className="material-icons md-36 red500">error_outline</i>:
-                  <i style={styles.fontIcons} className="material-icons md-36">cloud_upload</i>
+                  <i style={styles.fontIcons} className='material-icons md-36 red500'>error_outline</i>:
+                  <i style={styles.fontIcons} className='material-icons md-36'>cloud_upload</i>
                 )
               }
-              labelPosition="before"
+              labelPosition='before'
               default={true}
-              containerElement="label"
+              containerElement='label'
               >
               <input
-                ref="uploader"
+                ref='uploader'
                 style={styles.uploadButton}
-                type="file"
-                accept="file_extension|audio/*"
+                type='file'
+                accept='file_extension|audio/*'
                 disabled={inProgress || this.state.files.length === 2}
                 onChange={this.handleUpload} multiple/>
             </RaisedButton>
           </div>
 
-          <div className="col-xs-12 col-sm-6">
+          <div className='col-xs-12 col-sm-6'>
             <List>
               {this.state.files.map((file, x)=>
                 <Chip
@@ -303,18 +304,18 @@ export default class Form extends Component {
             </List>
           </div>
 
-          <div className="col-xs-12 col-sm-6">
+          <div className='col-xs-12 col-sm-6'>
             <RaisedButton
               disabled={inProgress}
               style={styles.button}
-              // label={<i style={styles.fontIcons} className="material-icons md-36">send</i>}
-              label="submit"
-              labelPosition="before"
+              // label={<i style={styles.fontIcons} className='material-icons md-36'>send</i>}
+              label='submit'
+              labelPosition='before'
               primary={true}
-              containerElement="label"
+              containerElement='label'
               >
               <input
-                type="submit"
+                type='submit'
                 style={{display: 'none'}}
                 onClick={this.handleSubmit}
                 />

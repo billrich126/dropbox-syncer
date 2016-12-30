@@ -173,14 +173,14 @@ export default class FormValidator extends Component {
   render() {
     const actions = this.state.uploadSucceed ?
       <FlatButton
-        label='Ok ✔︎'
+        label='close'
         primary={true}
         keyboardFocused={true}
         onTouchTap={this.handleClose}
         />
         :
       <FlatButton
-        label="I see"
+        label='close'
         default={true}
         keyboardFocused={true}
         onTouchTap={this.handleClose}
@@ -207,7 +207,7 @@ export default class FormValidator extends Component {
           open={this.state.open}
           onRequestClose={this.handleClose}
           >
-          {this.state.uploadSucceed? 'Thanks a lot! 🎉🎉🎉🎉🎉' : 'Ohoops! Upload failed ☹️ follow the instructions please.'}
+          {this.state.uploadSucceed? 'Succeeded, thank you!' : 'Failed to upload, please try again!'}
         </Dialog>
       </div>
     )
