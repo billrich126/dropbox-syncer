@@ -20,9 +20,6 @@ const FAILED_DIALOG_MSG = 'Failed to upload, please try again!'
 
 const styles = {
   fontFamily: 'Roboto Mono',
-  marginLeft: 'auto',
-  marginRight: 'auto',
-  width: '75%'
 }
 
 export default class FormValidator extends Component {

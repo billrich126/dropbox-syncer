@@ -19,7 +19,6 @@ const styles = {
     }
   },
   textField: {
-    height: 72
   },
   toggle: {
     marginTop: 15,
@@ -197,6 +196,7 @@ export default class Form extends Component {
               onChange={this.handleTeamChange}
               errorText={!this.state.team? teamErrText:null}
               floatingLabelText='Team'
+              style={styles.selectField}
               iconStyle={!inProgress? styles.selectField.icon : null}
               >
               {teamOptions}
@@ -205,25 +205,27 @@ export default class Form extends Component {
         </div>
 
         <div className='row'>
-          <div className='col-xs-12 col-sm-6'>
+          <div className='col-xs-12 col-sm-3'>
             <SelectField
               disabled={inProgress}
               value={this.state.level}
               onChange={this.handleLevelChange}
               errorText={!this.state.level? levelErrText : null}
               floatingLabelText='Level'
+              style={styles.selectField}
               iconStyle={!inProgress? styles.selectField.icon : null}
               >
               {levelOptions}
             </SelectField>
           </div>
-          <div className='col-xs-12 col-sm-6'>
+          <div className='col-xs-12 col-sm-offset-3 col-sm-3'>
             <SelectField
               disabled={inProgress}
               value={this.state.apparatus}
               onChange={this.handleapparatusChange}
               errorText={!this.state.apparatus? apparatusErrText : null}
               floatingLabelText='Apparatus'
+              style={styles.selectField}
               iconStyle={!inProgress? styles.selectField.icon : null}
               >
               {apparatusOptions}
@@ -231,9 +233,8 @@ export default class Form extends Component {
           </div>
         </div>
 
-
         <div style={styles.toggle} className='row'>
-          <div style={styles.toggle.box} className='col-xs-6'>
+          <div style={styles.toggle.box} className='col-xs-12 col-sm-6'>
             <Toggle
               disabled={inProgress}
               label='Athlete'
@@ -247,7 +248,7 @@ export default class Form extends Component {
 
         {this.state.isAthlete?
           <div className='row'>
-            <div className='col-xs-12 col-sm-6'>
+            <div className='col-xs-12 col-sm-3'>
               <TextField
                 disabled={inProgress}
                 style={styles.textField}
@@ -257,7 +258,7 @@ export default class Form extends Component {
                 onChange={this.handleFirstNameChange}
                 />
             </div>
-            <div className='col-xs-12 col-sm-6'>
+            <div className='col-xs-12 col-sm-offset-3 col-sm-3'>
               <TextField
                 disabled={inProgress}
                 style={styles.textField}
@@ -271,7 +272,7 @@ export default class Form extends Component {
         }
 
         <div className='row'>
-          <div className='col-xs-12 col-sm-6'>
+          <div className='col-xs-12 col-sm-3'>
             <RaisedButton
               disabled={inProgress || this.state.files.length === 2}
               style={styles.button}
@@ -296,7 +297,7 @@ export default class Form extends Component {
           </div>
 
          {this.state.files.length > 0?
-          <div className='col-xs-12 col-sm-6'>
+          <div className='col-xs-12'>
             <List>
               {this.state.files.map((file, x)=>
                 <Chip
@@ -310,7 +311,7 @@ export default class Form extends Component {
             </List>
           </div> : null}
 
-          <div className='col-xs-12 col-sm-6'>
+          <div className='col-xs-12  col-sm-offset-3 col-sm-3'>
             <RaisedButton
               disabled={inProgress}
               style={styles.button}
@@ -332,7 +333,6 @@ export default class Form extends Component {
             </RaisedButton>
           </div>
         </div>
-
       </form>
     )
   }

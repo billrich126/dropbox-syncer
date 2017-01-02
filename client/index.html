@@ -3,39 +3,222 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- material ui -->
+    <link rel="icon" href="data:,">
+
+    <!-- material ui (font + icons) -->
     <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="css/flexboxgrid.min.css" type="text/css">
-    <link rel="icon" href="data:,">
-    <!-- customized css -->
+
+    <!-- jquery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <!--Import materialize.css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+    <!--Import materialize.js-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+
+    <!-- user defined css -->
     <style>
         .md-36 {
             font-size: 36px;
         }
-
         .md-48 {
             font-size: 48px;
         }
-
         .green500 {
             color: #4CAF50;
         }
-
         .red500 {
             color: #F44336;
         }
-
         .indigo500 {
             color: #3F51B5;
+        }
+        .active {
+          background-color: #bdbdbd;
+        }
+        header {
+          margin-bottom: 35px;
+        }
+        .section-body {
+          margin-top: 50px;
+          text-align: center;
+        }
+        /* make iframe responsive */
+        .wrapper {
+          position: relative;
+          padding-bottom: 56.25%; /* 16:9 */
+          padding-top: 25px;
+          height: 0;
+        }
+        .wrapper iframe {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+        }
+        #app {
+          margin-left: 10%;
+          width: 100%;
+          height: 100%;
+        }
+        /* override materialize text input underline focus style */
+        /* keep it, otherwise form input will get double lines when focused */
+        #app input[type=text]:focus {
+          box-shadow: none;
+          border: none;
+        }
+        address {
+          margin-top: 20px;
+          margin-bottom: 20px;
         }
     </style>
 </head>
 
 <body>
 
-    <div id="app"></div>
-    <script type="text/javascript" src="build/bundle.js"></script>
+  <div class="container">
+
+    <header>
+      <div class="card blue-grey lighten-5 center-align z-depth-5">
+        <!-- header image container -->
+        <div class="card-content blue-text z-depth-0">
+          <p><img class="responsive-img" alt='img placeholder' src="http://rgcompetitionma.com/images/StateChampionshipLogo.png" /></p>
+        </div>
+        <!-- responsive navigation menu -->
+        <nav id="menu" class="z-depth-0">
+          <div class="nav-wrapper blue-grey lighten-5">
+            <a href="#" class="black-text">2017 April 1-3</a>
+            <a href="#" data-activates="mobile-demo" class="button-collapse black-text"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+              <li><a class="black-text" href="#event">Event Info</a></li>
+              <li><a class="black-text" href="#location">Location</a></li>
+              <li><a class="black-text" href="#upload">Music Upload</a></li>
+              <li><a class="black-text" href="#hotel">Hotel</a></li>
+              <li><a class="black-text" href="#contact">Contact</a></li>
+            </ul>
+            <ul class="side-nav" id="mobile-demo">
+              <li><a href="#event"><i class="material-icons">event</i>Event Info</a></li>
+              <li><a href="#location"><i class="material-icons">location_on</i>Event Location</a></li>
+              <li><a href="#upload"><i class="material-icons">cloud_upload</i>Music Upload</a></li>
+              <li><a href="#hotel"><i class="material-icons">hotel</i>Hotel</a></li>
+              <li><a href="#contact"><i class="material-icons">contact_phone</i>Contact</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <div id="event">
+      <div class="section-body">
+        <ul class="collection">
+          <li class="collection-item"><a href="Group competitor List.pdf">Group Competition Competitors</a></li>
+          <li class="collection-item"><a href="individual Competitor List.pdf">Individual Competitors by Rotation Group</a></li>
+          <li class="collection-item"><a hrfe="schedule.pdf">Competition Schedule</a></li>
+          <li class="collection-item"><a href="RotationSheet_2016MA.pdf">Rotation Sequence</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="location">
+      <div class="section-body">
+        <address>
+          Norton Middle School <br>
+          215 West Main St, Norton <br>
+        </address>
+        <div class='wrapper'>
+          <iframe width="512" height="512" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=215+W+Main+St,+Norton,+MA+02766&amp;sll=42.036922,-71.683501&amp;sspn=3.34935,5.07019&amp;ie=UTF8&amp;hq=&amp;hnear=215+W+Main+St,+Norton,+Massachusetts+02766-1232&amp;ll=41.959855,-71.212434&amp;spn=0.006007,0.008036&amp;t=m&amp;z=14&amp;output=embed"></iframe>
+        </div>
+      </div>
+    </div>
+
+    <div id="upload">
+      <div class="section-body">
+        <div class='form'>
+          <div class="left-align" id="app"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="hotel">
+      <div class="section-body">
+        <div>
+          <ul class="collection">
+            <li class="collection-item"><a href="https://m.ihg.com/hotels/holidayinnexpress/us/en/hoteldetail/pvdpl">HolidayInn Express</a></li>
+            <li class="collection-item"><a href="https://m.ihg.com/hotels/holidayinn/us/en/hoteldetail/bosmf">HolidayInn</a></li>
+          </ul>
+          Both hotels are about 15 mins from the event location
+        </div>
+      </div>
+    </div>
+
+    <div id="contact">
+      <footer class="contact">
+        <div class="section-body">
+            Any questions? Please Contact <a href="">Ionela</a> our meet director.
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <div class="carousel">
+    <a class="carousel-item" href="#one!"><img src="http://lorempixel.com/250/250/nature/1"></a>
+    <a class="carousel-item" href="#two!"><img src="http://lorempixel.com/250/250/nature/2"></a>
+    <a class="carousel-item" href="#three!"><img src="http://lorempixel.com/250/250/nature/3"></a>
+    <a class="carousel-item" href="#four!"><img src="http://lorempixel.com/250/250/nature/4"></a>
+    <a class="carousel-item" href="#five!"><img src="http://lorempixel.com/250/250/nature/5"></a>
+  </div>
+
+  <script src='./build/bundle.js' type='text/javascript'></script>
+  <script type='text/javascript'>
+    $(document).ready(function() {
+      $('.button-collapse').sideNav()
+      $('.carousel').carousel()
+
+      const DEFAULT_ANCHOR = '#event'
+
+      var anchors = ['#event', '#location', '#upload', '#hotel', '#contact']
+      var activeAnchor = DEFAULT_ANCHOR
+
+      anchors.forEach(function(anchor) {
+        if (anchor == activeAnchor) {
+          $(anchor).show('slow')
+        } else {
+          $(anchor).hide()
+        }
+      })
+      $('#menu a').each(function(index) {
+        if ( $(this).attr('href') == activeAnchor ) {
+          $(this).parent().addClass('active')
+        } else {
+          $(this).parent().removeClass('active')
+        }
+      })
+
+      $('#menu a').click(function(e) {
+        e.preventDefault()
+
+        activeAnchor = $(this).attr('href')
+        anchors.forEach(function(anchor) {
+          if (anchor == activeAnchor) {
+            $(anchor).show('slow')
+          } else {
+            $(anchor).hide()
+          }
+        })
+        $('#menu a').each(function(index) {
+          if ( $(this).attr('href') == activeAnchor ) {
+            $(this).parent().addClass('active')
+          } else {
+            $(this).parent().removeClass('active')
+          }
+        })
+      })
+
+    })
+  </script>
 
 </body>
 

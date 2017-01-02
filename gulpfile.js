@@ -15,6 +15,7 @@ gulp.task('webpack-dev-server', function(callback) {
 
   new webpackDevServer(webpack(myConfig), {
     publicPath: myConfig.output.publicPath,
+    inline: true,
     stats: {
       colors: true
     }
