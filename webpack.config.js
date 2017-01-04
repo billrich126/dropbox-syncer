@@ -1,10 +1,11 @@
 var webpack = require('webpack')
+var path = require('path')
 
 module.exports = {
   // configuration
   entry: ['babel-polyfill', './client/js/index'],
   output: {
-    path: __dirname + '/client/build',
+    path: path.resolve(__dirname, './client/build'),
     publicPath: '/',
     filename: 'bundle.js'
   },
