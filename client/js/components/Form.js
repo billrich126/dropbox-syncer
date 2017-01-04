@@ -19,10 +19,17 @@ const styles = {
     }
   },
   textField: {
+    height: 72
   },
   toggle: {
-    marginTop: 15,
-    marginBottom: 15
+    /* center toggle -start */
+    // position: 'relative',
+    // marginLeft: '50%',
+    // transform: 'translateX(-50%)',
+    /* center toggle -end */
+    width: 256,
+    /* using margin: auto to center an inner div */
+    margin: '36px auto'
   },
   fontIcons: {
     marginTop: 8
@@ -30,14 +37,15 @@ const styles = {
   button: {
     width: 256,
     height: 55,
-    marginTop: 22,
-    marginBotton: 22
+    marginTop: 36,
+    marginBotton: 36
   },
   uploadButton: {
     display: 'none'
   },
   chip: {
-    margin: 4
+    /* center chip */
+    margin: '10px auto'
   },
   circularProgress: {
     position: 'absolute',
@@ -48,7 +56,20 @@ const styles = {
 
 // Selection field options
 const teamOptions = [
-  <MenuItem key={'rhd'} value={'rhd'} primaryText='rhd' />
+  <MenuItem key={'RHD'} value={'rhd'} primaryText='Rhythmic Dreams-rhd'/>,
+  <MenuItem key={'FET'} value={'FET'} primaryText='Fitness Elite Training Center'/>,
+  <MenuItem key={'NSA'} value={'NSA'} primaryText='New England Sports Academy'/>,
+  <MenuItem key={'NER'} value={'NER'} primaryText='North-East Rhythmics'/>,
+  <MenuItem key={'DRG'} value={'DRG'} primaryText='Dynamics Rhythmic Gymnastics'/>,
+  <MenuItem key={'GOR'} value={'GOR'} primaryText='Golden Ray Phythmics'/>,
+  <MenuItem key={'GYU'} value={'GYU'} primaryText='Gymnastics Unlimited'/>,
+  <MenuItem key={'ISA'} value={'ISA'} primaryText='Isadora Rhythmics'/>,
+  <MenuItem key={'MAT'} value={'MAT'} primaryText='MatchPoint NYC'/>,
+  <MenuItem key={'CTR'} value={'CTR'} primaryText='CT Rhythmic Gymnastic Academy'/>,
+  <MenuItem key={'GWA'} value={'GWA'} primaryText='Gymnastics World Academy'/>,
+  <MenuItem key={'ISR'} value={'ISR'} primaryText='Inspiration School of Rhythmic Gymnastics'/>,
+  <MenuItem key={'LIB'} value={'LIB'} primaryText='Liberty Academy of Rhythmic Gymnastics'/>,
+  <MenuItem key={'MID'} value={'MID'} primaryText='Middlesex Gymnastics Academy'/>
 ]
 const levelOptions = [
   <MenuItem key={'level3'} value={3} primaryText='level 3' />,
@@ -186,7 +207,7 @@ export default class Form extends Component {
     const spinnerDisplay = inProgress? 'inline-block' : 'none'
 
     return (
-      <form method='post' encType='multipart/form-data'>
+      <form  method='post' encType='multipart/form-data'>
 
         <div className='row'>
           <div className='col-xs-12'>
@@ -205,7 +226,7 @@ export default class Form extends Component {
         </div>
 
         <div className='row'>
-          <div className='col-xs-12 col-sm-3'>
+          <div className='col-xs-12 col-sm-6'>
             <SelectField
               disabled={inProgress}
               value={this.state.level}
@@ -218,7 +239,7 @@ export default class Form extends Component {
               {levelOptions}
             </SelectField>
           </div>
-          <div className='col-xs-12 col-sm-offset-3 col-sm-3'>
+          <div className='col-xs-12 col-sm-6'>
             <SelectField
               disabled={inProgress}
               value={this.state.apparatus}
@@ -233,8 +254,8 @@ export default class Form extends Component {
           </div>
         </div>
 
-        <div style={styles.toggle} className='row'>
-          <div style={styles.toggle.box} className='col-xs-12 col-sm-6'>
+        <div className='row'>
+          <div className='col-xs-12'>
             <Toggle
               disabled={inProgress}
               label='Athlete'
@@ -243,36 +264,36 @@ export default class Form extends Component {
               toggled={this.state.isAthlete}
               onToggle={this.handleAthleteToggle}
               />
-          </div>
+            </div>
         </div>
 
         {this.state.isAthlete?
-          <div className='row'>
-            <div className='col-xs-12 col-sm-3'>
-              <TextField
-                disabled={inProgress}
-                style={styles.textField}
-                hintText='First Name'
-                value={this.state.firstName}
-                errorText={!this.state.firstName? firstNameErrText : null}
-                onChange={this.handleFirstNameChange}
-                />
-            </div>
-            <div className='col-xs-12 col-sm-offset-3 col-sm-3'>
-              <TextField
-                disabled={inProgress}
-                style={styles.textField}
-                hintText='Last Name'
-                value={this.state.lastName}
-                errorText={!this.state.lastName? lastNameErrText : null}
-                onChange={this.handleLastNameChange}
-                />
-            </div>
-          </div> : null
+        <div className='row'>
+          <div className='col-xs-12 col-sm-6'>
+            <TextField
+              disabled={inProgress}
+              style={styles.textField}
+              hintText='First Name'
+              value={this.state.firstName}
+              errorText={!this.state.firstName? firstNameErrText : null}
+              onChange={this.handleFirstNameChange}
+              />
+          </div>
+          <div className='col-xs-12 col-sm-6'>
+            <TextField
+              disabled={inProgress}
+              style={styles.textField}
+              hintText='Last Name'
+              value={this.state.lastName}
+              errorText={!this.state.lastName? lastNameErrText : null}
+              onChange={this.handleLastNameChange}
+              />
+          </div>
+        </div> : null
         }
 
         <div className='row'>
-          <div className='col-xs-12 col-sm-3'>
+          <div className='col-xs-12 col-sm-6'>
             <RaisedButton
               disabled={inProgress || this.state.files.length === 2}
               style={styles.button}
@@ -294,24 +315,23 @@ export default class Form extends Component {
                 disabled={inProgress || this.state.files.length === 2}
                 onChange={this.handleUpload} multiple/>
             </RaisedButton>
+
+            {this.state.files.length > 0?
+               <List>
+                 {this.state.files.map((file, x)=>
+                   <Chip
+                     key={x}
+                     onRequestDelete={() => this.handleRequestDelete(file.name)}
+                     style={styles.chip}
+                    >
+                    {file.name}
+                  </Chip>
+                 )}
+               </List>
+              : null}
           </div>
 
-         {this.state.files.length > 0?
-          <div className='col-xs-12'>
-            <List>
-              {this.state.files.map((file, x)=>
-                <Chip
-                  key={x}
-                  onRequestDelete={() => this.handleRequestDelete(file.name)}
-                  style={styles.chip}
-                 >
-                 {file.name}
-               </Chip>
-              )}
-            </List>
-          </div> : null}
-
-          <div className='col-xs-12  col-sm-offset-3 col-sm-3'>
+          <div className='col-xs-12 col-sm-6'>
             <RaisedButton
               disabled={inProgress}
               style={styles.button}
@@ -333,6 +353,7 @@ export default class Form extends Component {
             </RaisedButton>
           </div>
         </div>
+
       </form>
     )
   }
