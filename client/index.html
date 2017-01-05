@@ -193,7 +193,6 @@
             </div>
         </header>
 
-
         <div id="home">
             <div class="section-body">
                 <ul class="collection">
@@ -369,7 +368,8 @@
 
         // rocket (scroll to top button)
         $(window).scroll(function() {
-          $(window).scrollTop() > 200 ? $("#rocket").addClass("show")
+          $(window).scrollTop() > 200
+          ? $("#rocket").addClass("show")
           : $("#rocket").removeClass("show")
         })
         $("#rocket").click(function() {
