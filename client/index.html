@@ -13,9 +13,8 @@
     <!-- jquery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
-    <!--Import materialize.css-->
+    <!-- materialize -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
-    <!--Import materialize.js-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
 
     <!-- user defined css -->
@@ -40,16 +39,22 @@
             color: #3F51B5;
         }
 
-        .active {
-            background-color: #bdbdbd;
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
         }
 
         header {
-            margin-bottom: 160px;
+            /*margin-top: 150px;*/
+            /*margin-bottom: 160px;*/
         }
 
         .section-body {
-            margin-top: 50px;
+            height: 100vh;
+            padding-top: 100px;
             text-align: center;
         }
 
@@ -101,66 +106,63 @@
             margin-bottom: 20px;
         }
 
-        @media screen and (max-width: 512px) {
-            header {
-                margin-bottom: 60px;
-            }
+        nav {
+            position: fixed;
+            top: 0;
+            right: 0;
+            z-index: 1000;
         }
 
-        @media screen and (min-width: 512px) and (max-width: 1024px) {
-            header {
-                margin-bottom: 100px;
-            }
+        footer {
+          height: 200px;
         }
     </style>
 </head>
 
 <body>
 
-    <div class="container">
+      <!-- responsive navigation menu -->
+      <header>
 
-        <header>
-            <div class="card blue-grey lighten-5 center-align z-depth-5">
-                <!-- header image container -->
-                <div class="card-content blue-text z-depth-0">
-                    <p><img class="responsive-img" alt='img placeholder' src="StateChampionshipLogo.png" /></p>
-                </div>
-                <!-- responsive navigation menu -->
-                <nav id="menu" class="z-depth-0">
-                    <div class="nav-wrapper blue-grey lighten-5">
-                        <span class="black-text">2017 April 1-3</span>
-                        <a href="#home" data-activates="mobile-demo" class="center-align button-collapse red-text text-lighten-2"><i class="material-icons">menu</i></a>
-                        <ul class="side-nav" id="mobile-demo">
-                            <li><a href="#home"><i class="material-icons">event</i>Home</a></li>
-                            <li><a href="#location"><i class="material-icons">location_on</i>Event Location</a></li>
-                            <li><a href="#upload"><i class="material-icons">cloud_upload</i>Music Upload</a></li>
-                            <li><a href="#hotel"><i class="material-icons">hotel</i>Hotel</a></li>
-                            <li><a href="#contact"><i class="material-icons">contact_phone</i>Contact</a></li>
-                        </ul>
-                        <ul class="red lighten-2 z-depth-5 hide-on-med-and-down" id="h-menu">
-                            <li><a class="black-text" href="#home">Home</a></li>
-                            <li><a class="black-text" href="#location">Location</a></li>
-                            <li><a class="black-text" href="#upload">Music Upload</a></li>
-                            <li><a class="black-text" href="#hotel">Hotel</a></li>
-                            <li><a class="black-text" href="#contact">Contact</a></li>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
-        </header>
+        <nav id="menu" class="blue-grey">
+          <div class="nav-wrapper blue-grey z-depth-5">
+            <span style="padding-left: 50px" class="white-text">2017 April 1-3</span>
+            <a href="#home" data-activates="mobile-demo" class="center-align button-collapse orange-text text-accent-2"><i class="material-icons">menu</i></a>
+            <ul class="side-nav" id="mobile-demo">
+              <li><a href="#home"><i class="material-icons">event</i>Home</a></li>
+              <li><a href="#location"><i class="material-icons">location_on</i>Event Location</a></li>
+              <li><a href="#upload"><i class="material-icons">cloud_upload</i>Music Upload</a></li>
+              <li><a href="#hotel"><i class="material-icons">hotel</i>Hotel</a></li>
+              <li><a href="#contact"><i class="material-icons">contact_phone</i>Contact</a></li>
+            </ul>
+            <ul class="container right hide-on-med-and-down" id="nav-mobile">
+              <li data-menuanchor="home"><a class="white-text" href="#home">Home</a></li>
+              <li data-menuanchor="location"><a class="white-text" href="#location">Location</a></li>
+              <li data-menuanchor="upload"><a class="white-text" href="#upload">Music Upload</a></li>
+              <li data-menuanchor="hotel"><a class="white-text" href="#hotel">Hotel</a></li>
+              <li data-menuanchor="contact"><a class="white-text" href="#contact">Contact</a></li>
+            </ul>
+          </div>
+        </nav>
 
-        <div id="home">
-            <div class="section-body">
+          <!-- header image container -->
+          <!-- <div class="card blue-grey lighten-5 center-align z-depth-5">
+          <div class="card-content blue-text z-depth-0">
+            <p><img class="responsive-img" alt='img placeholder' src="StateChampionshipLogo.png" /></p>
+          </div>
+        </div> -->
+      </header>
+
+        <div id="home" class="green lighten-2">
+            <div class="section-body container">
                 <ul class="collection">
                     <li class="collection-item"><a href="Group competitor List.pdf">Group Competition Competitors</a></li>
                     <li class="collection-item"><a href="individual Competitor List.pdf">Individual Competitors by Rotation Group</a></li>
                     <li class="collection-item"><a hrfe="schedule.pdf">Competition Schedule</a></li>
                     <li class="collection-item"><a href="RotationSheet_2016MA.pdf">Rotation Sequence</a></li>
                 </ul>
-            </div>
-            <!-- optional features: comment out if don't need these features -->
-            <!-- image slider at bottom of screen -->
-            <div id="slider">
+                <!-- optional features: comment out if don't need these features -->
+                <!-- image slider at bottom of screen -->
                 <div class="carousel carousel-slider center" data-indicators="true">
                     <div class="carousel-fixed-item">
                         <!-- <a class="btn waves-effect white grey-text darken-text-2">button</a> -->
@@ -172,8 +174,8 @@
             </div>
         </div>
 
-        <div id="location">
-            <div class="section-body">
+        <div id="location" class="indigo lighten-2">
+            <div class="section-body container">
                 <address>
                     Norton Middle School <br>
                     215 West Main St, Norton <br>
@@ -184,14 +186,14 @@
             </div>
         </div>
 
-        <div id="upload">
-            <div class="section-body">
+        <div id="upload" wlass="white lighten-2">
+            <div class="section-body container">
                 <div id="app"></div>
             </div>
         </div>
 
-        <div id="hotel">
-            <div class="section-body">
+        <div id="hotel" class="orange lighten-2">
+            <div class="section-body container">
                 <div>
                     <ul class="collection">
                         <li class="collection-item"><a href="https://m.ihg.com/hotels/holidayinnexpress/us/en/hoteldetail/pvdpl">HolidayInn Express</a></li>
@@ -203,19 +205,22 @@
         </div>
 
         <div id="contact">
-            <footer class="contact">
-                <div class="section-body">
-                    Any questions? Please Contact <a href="">Ionela</a> our meet director.
+            <footer class="black white-text valign-wrapper">
+                <div style="margin: auto" class="valign">
+                    <p>Any questions? Please Contact <a href="">Ionela</a> our meet director.</p>
                 </div>
             </footer>
         </div>
+
     </div>
 
     <script src='./build/bundle.js' type='text/javascript'></script>
     <script type='text/javascript'>
         $(document).ready(function() {
+
             $('.button-collapse').sideNav()
-                /*  image slider (default timeing: 2500ms) */
+
+            /*  image slider (default timeing: 2500ms) */
             var imageSlider = function() {
                 // initialise
                 $('.carousel.carousel-slider').carousel({
@@ -224,24 +229,16 @@
                 })
 
                 setInterval(function() {
-                        $('.carousel.carousel-slider').carousel('next')
-                    }, 2000) // TODO: change 2500ms to your need here
-
+                    $('.carousel.carousel-slider').carousel('next')
+                }, 2000)
             }
             imageSlider()
 
             /* navigation menu (collapsible) */
             const DEFAULT_ANCHOR = '#home'
+
             var anchors = ['#home', '#location', '#upload', '#hotel', '#contact']
             var activeAnchor = DEFAULT_ANCHOR
-
-            anchors.forEach(function(anchor) {
-                if (anchor == activeAnchor) {
-                    $(anchor).show('slow')
-                } else {
-                    $(anchor).hide()
-                }
-            })
             $('#menu a').each(function(index) {
                 if ($(this).attr('href') == activeAnchor) {
                     $(this).parent().addClass('active')
@@ -254,13 +251,10 @@
                 e.preventDefault()
 
                 activeAnchor = $(this).attr('href')
-                anchors.forEach(function(anchor) {
-                    if (anchor == activeAnchor) {
-                        $(anchor).show('slow')
-                    } else {
-                        $(anchor).hide()
-                    }
-                })
+                $('html, body').animate({
+                    scrollTop: $(activeAnchor).offset().top
+                }, 1500);
+
                 $('#menu a').each(function(index) {
                     if ($(this).attr('href') == activeAnchor) {
                         $(this).parent().addClass('active')
