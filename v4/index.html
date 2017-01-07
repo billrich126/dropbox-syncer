@@ -8,17 +8,17 @@
     <!-- material ui (font + icons) -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
     <link  rel="stylesheet"href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="/v4/bower_components/materialize/dist/css/materialize.min.css">
-    <link rel="stylesheet" href="/v4/bower_components/flexboxgrid/dist/flexboxgrid.min.css">
+    <link rel="stylesheet" href="./bower_components/materialize/dist/css/materialize.min.css">
+    <link rel="stylesheet" href="./bower_components/flexboxgrid/dist/flexboxgrid.min.css">
 
     <!-- eaglerly load webcomponents before jQuery, as may cause 'jQuery assertion error'on safari 8.0 & firefox 32.0 if not
          more details see: https://github.com/webcomponents/webcomponentsjs/issues/48 -->
-    <script src="/v4/bower_components/webcomponentsjs/webcomponents.min.js"></script>
+    <script src="./bower_components/webcomponentsjs/webcomponents.min.js"></script>
     <!-- jquery -->
-    <script src="/v4/bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="/v4/bower_components/materialize/dist/js/materialize.min.js"></script>
+    <script src="./bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="./bower_components/materialize/dist/js/materialize.min.js"></script>
     <!-- util dependency detecting user device-->
-    <script src="/v4/bower_components/mobile-detect/mobile-detect.min.js"></script>
+    <script src="./bower_components/mobile-detect/mobile-detect.min.js"></script>
 </head>
 
 <body>
@@ -52,7 +52,7 @@
     let supportsTemplate = supportsFeature('content', 'template')
     let supportsImport = supportsFeature('import', 'link')
 
-    const IMPORT_TMPL_DIR = '/v4/templates/'
+    const IMPORT_TMPL_DIR = './templates/'
     const targetScript = IMPORT_TMPL_DIR + (md.mobile()? 'mobile.js' : 'desktop.js')
 
     // create link element to import html template
