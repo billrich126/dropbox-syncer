@@ -1,0 +1,145 @@
+<style>
+    .md-36 {
+        font-size: 36px;
+    }
+
+    .md-48 {
+        font-size: 48px;
+    }
+
+    .green500 {
+        color: #4CAF50;
+    }
+
+    .red500 {
+        color: #F44336;
+    }
+
+    .indigo500 {
+        color: #3F51B5;
+    }
+
+    .container {
+        width: 85%;
+    }
+
+    header {
+        margin-bottom: 35px;
+    }
+
+    /* make iframe responsive */
+    .wrapper {
+        position: relative;
+        padding-bottom: 56.25%;
+        /* 16:9 */
+        padding-top: 25px;
+        height: 0;
+    }
+
+    .wrapper iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .section-body {
+        margin: 35px;
+        text-align: center;
+    }
+    /* override materialize text input underline focus style */
+    /* keep it, otherwise form input will get double lines when focused */
+
+    #app input[type=text]:focus {
+        box-shadow: none !important;
+        border: none;
+    }
+
+    address {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+</style>
+
+
+<template>
+
+  <div class="container">
+      <header>
+          <div class="card grey lighten-5 center-align">
+              <div class="card-content blue-text">
+                  <span class="card-title black-text">2017 April 1-3</span>
+                  <p><img class="responsive-img" alt='img placeholder' src="http://rgcompetitionma.com/images/StateChampionshipLogo.png" /></p>
+              </div>
+          </div>
+      </header>
+
+      <section>
+          <div class="row">
+              <div class="col s12 l8">
+                  <div id="event">
+                      <div class="collapsible-header red lighten-3"><i class="material-icons">event</i>Event Information</div>
+                      <div class="section-body">
+                          <ul class="collection">
+                              <li class="collection-item"><a href="Group competitor List.pdf">Group Competition Competitors</a></li>
+                              <li class="collection-item"><a href="individual Competitor List.pdf">Individual Competitors by Rotation Group</a></li>
+                              <li class="collection-item"><a hrfe="schedule.pdf">Competition Schedule</a></li>
+                              <li class="collection-item"><a href="RotationSheet_2016MA.pdf">Rotation Sequence</a></li>
+                          </ul>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="col s12 l4">
+                  <div id="location">
+                      <div class="collapsible-header lime lighten-3"><i class="material-icons">location_on</i>Event Location</div>
+                      <div class="section-body">
+                          <address>
+                              Norton Middle School <br>
+                              215 West Main St, Norton <br>
+                          </address>
+                          <div class="wrapper">
+                              <iframe class="responsive-img" width="250" height="250" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=215+W+Main+St,+Norton,+MA+02766&amp;sll=42.036922,-71.683501&amp;sspn=3.34935,5.07019&amp;ie=UTF8&amp;hq=&amp;hnear=215+W+Main+St,+Norton,+Massachusetts+02766-1232&amp;ll=41.959855,-71.212434&amp;spn=0.006007,0.008036&amp;t=m&amp;z=14&amp;output=embed"></iframe>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <div class="row">
+              <div class="col s12 l8">
+                  <div id="upload">
+                      <div class="collapsible-header green lighten-3"><i class="material-icons">file_upload</i>Music Files Upload</div>
+                      <div class="section-body">
+                          <div class="left-align" id="app"></div>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="col s12 l4">
+                  <div id="hotel">
+                      <div class="collapsible-header blue lighten-3"><i class="material-icons">hotel</i>Hotel Recommendation</div>
+                      <div class="section-body">
+                          <div>
+                              <ul class="collection">
+                                  <li class="collection-item"><a href="https://m.ihg.com/hotels/holidayinnexpress/us/en/hoteldetail/pvdpl">HolidayInn Express</a></li>
+                                  <li class="collection-item"><a href="https://m.ihg.com/hotels/holidayinn/us/en/hoteldetail/bosmf">HolidayInn</a></li>
+                              </ul>
+                              Both hotels are about 15 mins from the event location
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+
+      <footer id="contact" class="contact">
+          <div class="collapsible-header purple lighten-3"><i class="material-icons">contact_phone</i>Contact</div>
+          <div class="section-body">
+              Any questions? Please Contact <a href="">Ionela</a> our meet director.
+          </div>
+      </footer>
+  </div>
+
+</template>

@@ -1,0 +1,86 @@
+<!doctype html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="data:,">
+
+    <!-- material ui (font + icons) -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
+    <link  rel="stylesheet"href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="/v4/bower_components/materialize/dist/css/materialize.min.css">
+    <link rel="stylesheet" href="/v4/bower_components/flexboxgrid/dist/flexboxgrid.min.css">
+
+    <!-- eaglerly load webcomponents before jQuery, as may cause 'jQuery assertion error'on safari 8.0 & firefox 32.0 if not
+         more details see: https://github.com/webcomponents/webcomponentsjs/issues/48 -->
+    <script src="/v4/bower_components/webcomponentsjs/webcomponents.min.js"></script>
+    <!-- jquery -->
+    <script src="/v4/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/v4/bower_components/materialize/dist/js/materialize.min.js"></script>
+    <!-- util dependency detecting user device-->
+    <script src="/v4/bower_components/mobile-detect/mobile-detect.min.js"></script>
+</head>
+
+<body>
+
+  <div id='main'>
+
+  </div>
+
+  <script type='text/javascript'>
+    function supportsFeature (prop, elm) {
+      return prop in document.createElement(elm)
+    }
+
+    function loadScript(src) {
+      let scriptEl = document.createElement('script')
+      scriptEl.type = 'text/javascript'
+      scriptEl.src = src
+      document.body.appendChild(scriptEl)
+    }
+
+    function importTemplateToDOM() {
+      const linkEl = document.querySelector('link[rel=import]')
+
+      const importee = linkEl.import.querySelector('template').content
+      const importer = document.getElementById('main')
+
+      importer.appendChild(document.importNode(importee, true))
+    }
+
+    let md = new MobileDetect(window.navigator.userAgent)
+    let supportsTemplate = supportsFeature('content', 'template')
+    let supportsImport = supportsFeature('import', 'link')
+
+    const IMPORT_TMPL_DIR = '/v4/templates/'
+    const targetScript = IMPORT_TMPL_DIR + (md.mobile()? 'mobile.js' : 'desktop.js')
+
+    // create link element to import html template
+    let linkEl = document.createElement('link')
+    linkEl.rel = 'import'
+    linkEl.href = IMPORT_TMPL_DIR + (md.mobile()? 'mobile.html' : 'desktop.html')
+    document.head.appendChild(linkEl)
+
+    if (!supportsImport || !supportsTemplate) {
+      // unsupported vendors, using polyfill to hook around
+      // loadScript(polyfillScript)
+      window.addEventListener('WebComponentsReady', function() {
+        importTemplateToDOM()
+        loadScript(targetScript)
+        loadScript(IMPORT_TMPL_DIR + 'form.js')
+      })
+    } else {
+      // for supported vendors like chrome, inject template directly
+      // aftter the link is loaded in header
+      linkEl.onload = function() {
+        importTemplateToDOM()
+        loadScript(targetScript)
+        loadScript(IMPORT_TMPL_DIR + 'form.js')
+      }
+    }
+
+  </script>
+
+</body>
+
+</html>
