@@ -86,6 +86,7 @@ const apparatusOptions = [
   <MenuItem key={'rope'} value={'rope'} primaryText='rope' />,
   <MenuItem key={'clubs'} value={'clubs'} primaryText='clubs' />,
   <MenuItem key={'ribbon'} value={'ribbon'} primaryText='ribbon' />,
+  <MenuItem key={'hoop'} value={'hoop'} primaryText='hoop' />,
   <MenuItem key={'floor'} value={'floor'} primaryText='floor' />
 ]
 
