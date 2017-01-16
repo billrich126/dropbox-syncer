@@ -20,9 +20,9 @@
 
     <!-- user defined css -->
     <style>
-        .md-36 {
-            font-size: 36px;
-        }
+.md-36 {
+    font-size: 36px;
+}
 
         .md-48 {
             font-size: 48px;
@@ -208,31 +208,50 @@
             </footer>
         </div>
     </div>
-
-    <script src='./build/bundle.js' type='text/javascript'></script>
+/build
+    <script src='/bundle.js' type='text/javascript'></script>
     <script type='text/javascript'>
-        $(document).ready(function() {
-            $('.button-collapse').sideNav()
-                /*  image slider (default timeing: 2500ms) */
-            var imageSlider = function() {
-                // initialise
-                $('.carousel.carousel-slider').carousel({
-                    full_width: true,
-                    indicator: true
-                })
+$(document).ready(function() {
+    $('.button-collapse').sideNav()
+        /*  image slider (default timeing: 2500ms) */
+        var imageSlider = function() {
+            // initialise
+            $('.carousel.carousel-slider').carousel({
+                full_width: true,
+                indicator: true
+            })
 
-                setInterval(function() {
-                        $('.carousel.carousel-slider').carousel('next')
-                    }, 2000) // TODO: change 2500ms to your need here
+            setInterval(function() {
+                $('.carousel.carousel-slider').carousel('next')
+            }, 2000) // TODO: change 2500ms to your need here
 
+        }
+    imageSlider()
+
+        /* navigation menu (collapsible) */
+        const DEFAULT_ANCHOR = '#home'
+        var anchors = ['#home', '#location', '#upload', '#hotel', '#contact']
+        var activeAnchor = DEFAULT_ANCHOR
+
+        anchors.forEach(function(anchor) {
+            if (anchor == activeAnchor) {
+                $(anchor).show('slow')
+            } else {
+                $(anchor).hide()
             }
-            imageSlider()
+        })
+    $('#menu a').each(function(index) {
+        if ($(this).attr('href') == activeAnchor) {
+            $(this).parent().addClass('active')
+        } else {
+            $(this).parent().removeClass('active')
+        }
+    })
 
-            /* navigation menu (collapsible) */
-            const DEFAULT_ANCHOR = '#home'
-            var anchors = ['#home', '#location', '#upload', '#hotel', '#contact']
-            var activeAnchor = DEFAULT_ANCHOR
+    $('#menu a').click(function(e) {
+        e.preventDefault()
 
+            activeAnchor = $(this).attr('href')
             anchors.forEach(function(anchor) {
                 if (anchor == activeAnchor) {
                     $(anchor).show('slow')
@@ -240,34 +259,15 @@
                     $(anchor).hide()
                 }
             })
-            $('#menu a').each(function(index) {
-                if ($(this).attr('href') == activeAnchor) {
-                    $(this).parent().addClass('active')
-                } else {
-                    $(this).parent().removeClass('active')
-                }
-            })
-
-            $('#menu a').click(function(e) {
-                e.preventDefault()
-
-                activeAnchor = $(this).attr('href')
-                anchors.forEach(function(anchor) {
-                    if (anchor == activeAnchor) {
-                        $(anchor).show('slow')
-                    } else {
-                        $(anchor).hide()
-                    }
-                })
-                $('#menu a').each(function(index) {
-                    if ($(this).attr('href') == activeAnchor) {
-                        $(this).parent().addClass('active')
-                    } else {
-                        $(this).parent().removeClass('active')
-                    }
-                })
-            })
+        $('#menu a').each(function(index) {
+            if ($(this).attr('href') == activeAnchor) {
+                $(this).parent().addClass('active')
+            } else {
+                $(this).parent().removeClass('active')
+            }
         })
+    })
+})
     </script>
 
 </body>

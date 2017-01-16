@@ -138,17 +138,19 @@ export default class FormValidator extends Component {
         )
       })
 
-      return Promise.all(uploadAsynTasks)
+      Promise.all(uploadAsynTasks)
         .then(values => {
           resolve(values)
         })
-        .catch(err => reject(err))
+        .catch(err => {
+          reject(err)
+        })
     })
     .then(resolve => {
       self.setState({
-          open: true,
-          uploadSucceed: true,
-          uploadStarted: false
+        open: true,
+        uploadSucceed: true,
+        uploadStarted: false
       })
     })
     .catch(rej => {

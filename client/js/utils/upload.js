@@ -27,8 +27,6 @@ const upload = function(team, level, apparatus, firstName, lastName, file) {
     throw  'Your file name doesn\'t meet requirement'
   }
 
-  // console.log('Valid Filename is:', filename)
-
   var public_path = '/folkUploads'
   var target_path = [public_path, 'level'+level, filename].join('/')
   return dbx.filesUpload({
@@ -38,8 +36,8 @@ const upload = function(team, level, apparatus, firstName, lastName, file) {
       '.tag': 'add'
     }
   })
-  .then(fulfill => Promise.resolve(fulfill))
-  .catch(err => Promise.reject(err))
+    .then(fulfill => fullfill)               // a fulfilled promise
+    .catch(reject => Promise.reject(reject)) // a rejected promise
 }
 
 export default upload
